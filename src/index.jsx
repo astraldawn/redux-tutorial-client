@@ -1,18 +1,30 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Route, Router, hashHistory} from 'react-router';
-import Voting from './components/Voting';
+import {Router, Route, hashHistory} from 'react-router';
+import {createStore} from 'redux';
+import {Provider} from 'react-redux';
+import io from 'socket.io-client';
+import reducer from './reducer';
 import App from './components/App';
-import Results from './components/Results';
+import {VotingContainer} from './components/Voting';
+import {ResultsContainer} from './components/Results';
+import {setState} from './action_creators';
 
-require('./style.css');
+const store = createStore(reducer);
+
+const socket = io(`${location.protocol}//${location.hostname}:8090`);
+socket.on('state', state =>
+    store.dispatch(setState(state))
+);
 
 const routes = <Route component={App}>
-    <Route path="/" component={Voting}/>
-    <Route path="/results" component={Results}/>
+    <Route path="/results" component={ResultsContainer} />
+    <Route path="/" component={VotingContainer} />
 </Route>;
 
 ReactDOM.render(
-    <Router history={hashHistory}>{routes}</Router>,
+    <Provider store={store}>
+        <Router history={hashHistory}>{routes}</Router>
+    </Provider>,
     document.getElementById('app')
 );

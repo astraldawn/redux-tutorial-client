@@ -5,7 +5,7 @@ import {
     scryRenderedDOMComponentsWithTag,
     Simulate
 } from 'react-addons-test-utils';
-import Voting from '../../src/components/Voting';
+import {Voting} from '../../src/components/Voting';
 import {List} from 'immutable';
 import {expect} from 'chai';
 
