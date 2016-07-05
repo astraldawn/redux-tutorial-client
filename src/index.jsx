@@ -7,6 +7,6 @@ require('./style.css');
 const pair = ["A", "B"];
 
 ReactDOM.render(
-    <Voting pair={pair} />,
+    <Voting pair={pair} winner="A"/>,
     document.getElementById('app')
 );
