@@ -1,6 +1,3 @@
-/**
- * Created by mark on 7/5/16.
- */
 export function setState(state) {
     return {
         type: 'SET_STATE',
@@ -10,7 +7,15 @@ export function setState(state) {
 
 export function vote(entry) {
     return {
+        meta: {remote: true},
         type: 'VOTE',
         entry
+    };
+}
+
+export function next() {
+    return {
+        meta: {remote: true},
+        type: 'NEXT'
     };
 }
